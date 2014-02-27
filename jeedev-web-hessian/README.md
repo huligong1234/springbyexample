@@ -1,0 +1,4 @@
+Spring3.2+Hessian4.0.33(based on jeedev-web-jdbc https://github.com/huligong1234/springbyexample/tree/master/jeedev-web-jdbc)
+===============
+
+study notes
