@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>    
+   <package name="/system/sysUser" extends="struts-default" namespace="/system/sysUser">              
+         <action name="add" class="sysUserAction" method="add">
+              <result name="success">/WEB-INF/pages/common.jsp</result>            
+        </action>
+          <action name="update" class="sysUserAction" method="update">
+              <result name="success">/WEB-INF/pages/common.jsp</result>            
+        </action>       
+         <action name="del" class="sysUserAction" method="del">
+       		<result name="success">/WEB-INF/pages/common.jsp</result>
+            <result name="error">/WEB-INF/pages/common.jsp</result>       
+        </action>
+         <action name="findById" class="sysUserAction" method="findById">
+              <result name="error">/WEB-INF/pages/error.jsp</result>       
+           	  <result name="success">/WEB-INF/pages/demo/sysUser.jsp</result>           
+        </action>     
+ 		<action name="find" class="sysUserAction" method="find">
+              <result name="success">/WEB-INF/pages/demo/list.jsp</result>            
+        </action>
+    </package>
+<!--     <package name="/system/sysRole" extends="struts-default" namespace="/system/sysRole">              
+         <action name="add" class="roleAction" method="add">
+              <result name="success">/WEB-INF/pages/common.jsp</result>            
+        </action>
+        <action name="check" class="roleAction" method="check">
+              <result name="success">/WEB-INF/pages/pay/check.jsp</result>            
+        </action>
+ 		<action name="find" class="roleAction" method="find">
+              <result name="success">/WEB-INF/pages/pay/list.jsp</result>            
+        </action>
+    </package> -->
+  
+</struts>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="/system/sysUser" extends="json-default" namespace="/system/sysUser">
+		<action name="find" class="sysUserJSONAction" method="find">
+			<result name="success" type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+		<action name="findById" class="sysUserJSONAction" method="findById">
+			<result name="success" type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+
+</struts>
