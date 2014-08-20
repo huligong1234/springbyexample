@@ -105,7 +105,7 @@
 	</tx:advice>
 
 	<aop:config expose-proxy="true">
-		<aop:pointcut id="txPointcut" expression="execution(* org.jeedevframework.joy.service.*Service*.*(..))" />
+		<aop:pointcut id="txPointcut" expression="execution(* org.jeedevframework.web.service.*Service*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
 </beans>
