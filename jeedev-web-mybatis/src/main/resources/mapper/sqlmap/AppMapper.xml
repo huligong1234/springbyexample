@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.jeedevframework.app.mapper.AppMapper" >
+  <resultMap id="BaseResultMap" type="app" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="re_order" property="reOrder" jdbcType="INTEGER" />
+    <result column="update_date" property="updateDate" jdbcType="VARCHAR" />
+    <result column="app_code" property="appCode" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PageBeanResult" type="pageBean">
+    <association property="resultData" column="id"  javaType="List" resultMap="BaseResultMap"/>  
+  </resultMap>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="app" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into app (create_date, is_delete, re_order, 
+      update_date, app_code, app_name
+      )
+    values (#{createDate,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, #{reOrder,jdbcType=INTEGER}, 
+      #{updateDate,jdbcType=VARCHAR}, #{appCode,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="app" >
+    update app
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT},
+      re_order = #{reOrder,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      app_code = #{appCode,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, create_date, is_delete, re_order, update_date, app_code, app_name
+    from app
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, create_date, is_delete, re_order, update_date, app_code, app_name
+    from app
+  </select>
+  
+   <select id="selectListByCondition" parameterType="pageBean" resultMap="PageBeanResult">
+    select id, create_date, is_delete, re_order, update_date, app_code, app_name
+    from app
+    where 1=1
+    <if test="_parameter != null">
+    	<if test="paramData.appCode != null and paramData.appCode != ''">
+    		and app_code = #{paramData.appCode,jdbcType=VARCHAR} 
+    	</if>
+    	<if test="paramData.appName != null and paramData.appName != ''">
+    		and app_name like "%"#{paramData.appName,jdbcType=VARCHAR}"%"  
+    	</if>
+    </if>
+  </select>
+</mapper>
