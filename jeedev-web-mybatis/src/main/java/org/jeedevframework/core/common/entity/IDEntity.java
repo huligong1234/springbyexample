@@ -1,4 +1,4 @@
-package org.jeedevframework.core.common.domain;
+package org.jeedevframework.core.common.entity;
 
 import java.util.Date;
 

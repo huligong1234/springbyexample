@@ -1,12 +1,14 @@
 package org.jeedevframework.core.common.service.impl;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
+import org.jeedevframework.core.common.entity.PageBean;
 import org.jeedevframework.core.common.mapper.BaseMapper;
 import org.jeedevframework.core.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,19 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
 		return this.getMapper().selectAll();
 	}
 	
+	@Override
+	public PageBean selectListByCondition(PageBean pageBean) {
+		int count = this.getMapper().selectPageCount(pageBean);
+		pageBean.setTotal(count);
+		if(count == 0){
+			pageBean.setQueryResult(Collections.emptyList());
+			return pageBean;
+		}
+		
+		List<?> queryResult = this.getMapper().selectPageListByCondition(pageBean);
+		pageBean.setQueryResult(queryResult);
+		return pageBean;
+	}
 	
 	protected synchronized Cache getCache() {
 		if(cache == null){

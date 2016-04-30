@@ -4,9 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.jeedevframework.TestBase;
-import org.jeedevframework.app.model.App;
+import org.jeedevframework.app.entity.App;
 import org.jeedevframework.app.service.AppService;
-import org.jeedevframework.core.common.domain.PageBean;
+import org.jeedevframework.core.common.entity.PageBean;
+import org.jeedevframework.core.common.entity.QuerySort;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -76,11 +77,16 @@ public class AppServiceImplTest extends TestBase {
 	
 	@Test
 	public void testE_selectListByCondition(){
-		PageBean pageBean = new PageBean(1,10);
+		PageBean pageBean = new PageBean(0,10);
+		pageBean.getQueryParameter().put("appName", "逃亡"); //查询条件
+		pageBean.getQuerySorts().add(new QuerySort("app_name",QuerySort.ORDER_DESC)); //排序
+		pageBean.getQuerySorts().add(new QuerySort("id",QuerySort.ORDER_ASC));//排序
+		
 		pageBean = this.appService.selectListByCondition(pageBean);
+		
 		Assert.notNull(pageBean);
-		Assert.notNull(pageBean.getResultData());
-		System.out.println(pageBean.getResultData());
+		Assert.notNull(pageBean.getQueryResult());
+		System.out.println(pageBean.getQueryResult());
 	}
 	
 	@Test

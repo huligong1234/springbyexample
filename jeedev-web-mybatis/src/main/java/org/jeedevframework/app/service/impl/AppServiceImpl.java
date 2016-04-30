@@ -2,10 +2,9 @@ package org.jeedevframework.app.service.impl;
 
 import java.util.List;
 
+import org.jeedevframework.app.entity.App;
 import org.jeedevframework.app.mapper.AppMapper;
-import org.jeedevframework.app.model.App;
 import org.jeedevframework.app.service.AppService;
-import org.jeedevframework.core.common.domain.PageBean;
 import org.jeedevframework.core.common.mapper.BaseMapper;
 import org.jeedevframework.core.common.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +38,4 @@ public class AppServiceImpl extends BaseServiceImpl<App,Integer> implements AppS
 		return list;
 	}
 
-
-	@Override
-	public PageBean selectListByCondition(PageBean pageBean) {
-		return this.appMapper.selectListByCondition(pageBean);
-	}
-
-	
 }

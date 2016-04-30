@@ -7,9 +7,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.jeedevframework.app.model.App;
+import org.jeedevframework.app.entity.App;
 import org.jeedevframework.app.service.AppService;
-import org.jeedevframework.core.common.domain.PageBean;
+import org.jeedevframework.core.common.entity.PageBean;
+import org.jeedevframework.core.common.entity.QuerySort;
 import org.jeedevframework.core.common.web.BaseController;
 import org.jeedevframework.core.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,26 +44,24 @@ public class AppController extends BaseController {
 	@RequestMapping(value="/selectListByCondition",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> list(HttpServletRequest request,ModelMap modelMap){
-		Map<String,String> paramMap = new HashMap<String,String>();
+		Map<String,Object> paramMap = new HashMap<String,Object>();
 		
 		paramMap.put("appCode", RequestUtil.getString(request, "appCode", ""));
 		paramMap.put("appName", RequestUtil.getString(request, "appName", ""));
 		
 		PageBean pageBean = PageBean.getInstance(request);
-		pageBean.setParamData(paramMap);
+		pageBean.setQueryParameter(paramMap);
+		pageBean.getQuerySorts().add(new QuerySort("app_name",QuerySort.ORDER_ASC));
 		pageBean = this.appService.selectListByCondition(pageBean);
 		
-		List<App> list =  null;
-		Object resultData = pageBean.getResultData();
-		if(null != resultData){
-			list = (List<App>)pageBean.getResultData();
-		}else{
-			list = Collections.emptyList();
+		List<App> queryResult = (List<App>) pageBean.getQueryResult();
+		if(null == queryResult){
+			queryResult = Collections.emptyList();
 		}
 
 		this.resultMap.put("success", true);
 		this.resultMap.put("total",0);
-		this.resultMap.put("rows", list);
+		this.resultMap.put("rows", queryResult);
 		
 		return this.resultMap;
 	}

@@ -4,8 +4,8 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias alias="pageBean" type="org.jeedevframework.core.common.domain.PageBean" />
-		<typeAlias alias="App" type="org.jeedevframework.app.model.App" />
+		<typeAlias alias="pageBean" type="org.jeedevframework.core.common.entity.PageBean" />
+		<typeAlias alias="App" type="org.jeedevframework.app.entity.App" />
 	</typeAliases>
 
 </configuration>

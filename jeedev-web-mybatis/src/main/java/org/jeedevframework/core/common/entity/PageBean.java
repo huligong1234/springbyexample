@@ -1,5 +1,8 @@
-package org.jeedevframework.core.common.domain;
+package org.jeedevframework.core.common.entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,13 +11,15 @@ import org.jeedevframework.core.util.RequestUtil;
 
 public class PageBean {
 	public static int DEFAULT_ROWS = 10;
-	private int page;
-	private int rows;
-	private int total;
+	private int page;//第N页
+	private int rows; //每页显示记录数
+	private int total; //总记录数
 	
-	private Object paramData;
+	private Map<String,Object> queryParameter = new HashMap<String,Object>();
 	
-	private Object resultData;
+	private ArrayList<QuerySort> querySorts = new ArrayList<QuerySort>();
+	
+	private List<?> queryResult;
 	
 	public PageBean() {
 		super();
@@ -28,7 +33,13 @@ public class PageBean {
 
 	public static PageBean getInstance(HttpServletRequest request){
 		int curPage = RequestUtil.getInt(request, "page", 1);
-		int curRows = RequestUtil.getInt(request, "rows", DEFAULT_ROWS);
+		int curRows = RequestUtil.getInt(request, "limit", -1);
+		if(-1 == curRows){
+			curRows = RequestUtil.getInt(request, "pre_page", -1);
+		}
+		if(-1 == curRows){
+			curRows = RequestUtil.getInt(request, "rows", DEFAULT_ROWS);
+		}
 		return new PageBean(curPage,curRows);
 	}
 	
@@ -104,21 +115,28 @@ public class PageBean {
 		this.total = total;
 	}
 
-
-	public Object getParamData() {
-		return paramData;
+	public Map<String, Object> getQueryParameter() {
+		return queryParameter;
 	}
 
-	public void setParamData(Object paramData) {
-		this.paramData = paramData;
+	public void setQueryParameter(Map<String, Object> queryParameter) {
+		this.queryParameter = queryParameter;
 	}
 
-	public Object getResultData() {
-		return resultData;
+	public List<?> getQueryResult() {
+		return queryResult;
 	}
 
-	public void setResultData(Object resultData) {
-		this.resultData = resultData;
+	public void setQueryResult(List<?> queryResult) {
+		this.queryResult = queryResult;
+	}
+
+	public ArrayList<QuerySort> getQuerySorts() {
+		return querySorts;
+	}
+
+	public void setQuerySorts(ArrayList<QuerySort> querySorts) {
+		this.querySorts = querySorts;
 	}
 	
 }

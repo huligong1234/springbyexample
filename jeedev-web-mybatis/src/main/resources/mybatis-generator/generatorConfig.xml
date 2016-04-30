@@ -36,7 +36,7 @@
     </table>
     -->
     
-    <javaModelGenerator targetPackage="org.jeedevframework.app.model" targetProject="src/main/java"/>
+    <javaModelGenerator targetPackage="org.jeedevframework.app.entity" targetProject="src/main/java"/>
 
     <sqlMapGenerator targetPackage="sqlmap"  targetProject="src/main/resources/mapper"/>
 

@@ -1,6 +1,6 @@
-package org.jeedevframework.app.model;
+package org.jeedevframework.app.entity;
 
-import org.jeedevframework.core.common.domain.IDEntity;
+import org.jeedevframework.core.common.entity.IDEntity;
 
 public class App extends IDEntity {
 

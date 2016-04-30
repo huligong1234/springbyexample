@@ -3,7 +3,8 @@ package org.jeedevframework.core.common.service;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jeedevframework.app.model.App;
+import org.jeedevframework.app.entity.App;
+import org.jeedevframework.core.common.entity.PageBean;
 import org.jeedevframework.core.common.mapper.BaseMapper;
 
 public interface BaseService<T,ID extends Serializable> {
@@ -20,5 +21,6 @@ public interface BaseService<T,ID extends Serializable> {
     
     int updateByPrimaryKey(T record);
 
+	PageBean selectListByCondition(PageBean pageBean);
 
 }
