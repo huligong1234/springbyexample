@@ -32,7 +32,7 @@ public class PageBean {
 	}
 
 	public static PageBean getInstance(HttpServletRequest request){
-		int curPage = RequestUtil.getInt(request, "page", 0);
+		int curPage = RequestUtil.getInt(request, "page", 1);
 		int curRows = RequestUtil.getInt(request, "limit", -1);
 		if(-1 == curRows){
 			curRows = RequestUtil.getInt(request, "pre_page", -1);
@@ -92,6 +92,9 @@ public class PageBean {
 	}
 
 	public int getPage() {
+		if(page>0){
+			return page-1;
+		}		
 		return page;
 	}
 
